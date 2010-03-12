@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="commons-codec-1.3.jar"/>
+	<classpathentry kind="lib" path="httpclient-4.0-beta2.jar"/>
+	<classpathentry kind="lib" path="httpcore-4.0-beta3.jar"/>
+	<classpathentry kind="lib" path="commons-logging-1.2.1.1.jar"/>
+	<classpathentry kind="lib" path="signpost-commonshttp4-1.2.1-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="signpost-core-1.2.1-SNAPSHOT.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
