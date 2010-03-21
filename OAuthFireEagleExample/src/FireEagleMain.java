@@ -2,7 +2,6 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URLEncoder;
 
-import oauth.signpost.OAuth;
 import oauth.signpost.OAuthConsumer;
 import oauth.signpost.OAuthProvider;
 import oauth.signpost.commonshttp.CommonsHttpOAuthConsumer;
@@ -29,7 +28,7 @@ public class FireEagleMain {
         System.out.println("Fetching request token from Fire Eagle...");
 
         // we do not support callbacks, thus pass OOB
-        String authUrl = provider.retrieveRequestToken(consumer, OAuth.OUT_OF_BAND);
+        String authUrl = provider.retrieveRequestToken(consumer, "http://www.example.com");
 
         System.out.println("Request token: " + consumer.getToken());
         System.out.println("Token secret: " + consumer.getTokenSecret());
