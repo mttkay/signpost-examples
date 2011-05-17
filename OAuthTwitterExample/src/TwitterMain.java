@@ -13,11 +13,15 @@ public class TwitterMain {
 
     public static void main(String[] args) throws Exception {
 
-        OAuthConsumer consumer = new DefaultOAuthConsumer("iIlNngv1KdV6XzNYkoLA",
-                "exQ94pBpLXFcyttvLoxU2nrktThrlsj580zjYzmoM");
+        OAuthConsumer consumer = new DefaultOAuthConsumer(
+                "iIlNngv1KdV6XzNYkoLA",
+                "exQ94pBpLXFcyttvLoxU2nrktThrlsj580zjYzmoM",
+                SignatureMethod.HMAC_SHA1);
 
-        OAuthProvider provider = new DefaultOAuthProvider("http://twitter.com/oauth/request_token",
-                "http://twitter.com/oauth/access_token", "http://twitter.com/oauth/authorize");
+        OAuthProvider provider = new DefaultOAuthProvider(
+                "https://api.twitter.com/oauth/request_token",
+                "https://api.twitter.com/oauth/access_token",
+                "https://api.twitter.com/oauth/authorize");
 
         System.out.println("Fetching request token from Twitter...");
 
