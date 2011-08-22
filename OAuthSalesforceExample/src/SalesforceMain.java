@@ -3,13 +3,14 @@ import oauth.signpost.OAuthConsumer;
 import oauth.signpost.OAuthProvider;
 import oauth.signpost.basic.DefaultOAuthConsumer;
 import oauth.signpost.basic.DefaultOAuthProvider;
-import oauth.signpost.http.HttpParameters;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class SalesforceMain {
 
@@ -52,8 +53,8 @@ public class SalesforceMain {
         // after getting the access token, so remove it from additional parameters
         consumer.setAdditionalParameters(null);
 
-        // Salesforce does not allow direct use of the OAuth token for regular API calls.
-        // You must first make a login API call to get a sessionId
+        // Salesforce does not use the OAuth token directly for regular API calls.
+        // You must first make a special login API call to get a serverUrl and sessionId
         final URL loginUrl = new URL(SFDC_LOGIN_URL);
         final HttpURLConnection request = (HttpURLConnection) loginUrl.openConnection();
         request.setRequestMethod("POST");
@@ -64,9 +65,19 @@ public class SalesforceMain {
         request.connect();
 
         System.out.println("Response: " + request.getResponseCode() + " " + request.getResponseMessage());
-        if (request.getResponseCode() == 200) {
-            System.out.println("Login Result: " + new Scanner(request.getInputStream()).useDelimiter("\\A").next());
-        }
+
+        final String loginResult = new Scanner(request.getInputStream()).useDelimiter("\\A").next();
+        System.out.println("Login Result: " + loginResult);
+
+        // Poor man's XML parsing. We only care about these two values in the response, so just using simple regex.
+        final Pattern loginResultPattern = Pattern.compile(".*<serverUrl>(.*)</serverUrl>.*<sessionId>(.*)</sessionId>.*");
+        final Matcher loginResultMatcher = loginResultPattern.matcher(loginResult);
+        loginResultMatcher.matches();
+        final String serverUrl = loginResultMatcher.group(1);
+        final String sessionId = loginResultMatcher.group(2);
+
+        System.out.println("Server Url: " + serverUrl);
+        System.out.println("Session Id: " + sessionId);
     }
 
     private static enum ApiType {
