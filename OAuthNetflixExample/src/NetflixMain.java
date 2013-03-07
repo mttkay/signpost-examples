@@ -49,7 +49,7 @@ public class NetflixMain {
         System.out.println("Access token: " + consumer.getToken());
         System.out.println("Token secret: " + consumer.getTokenSecret());
         // If you would like to make a "protected" request you will also need the user id
-        System.out.println("User ID: " + this.provider.getResponseParameters().getFirst( "user_id" );
+        System.out.println("User ID: " + provider.getResponseParameters().getFirst( "user_id" );
         
         URL url = new URL("http://api.netflix.com/catalog/titles");
         HttpURLConnection request = (HttpURLConnection) url.openConnection();
