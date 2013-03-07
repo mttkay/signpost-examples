@@ -15,8 +15,8 @@ public class NetflixMain {
     public static final String CONSUMER_SECRET = "Uze4zNHbJM";
     public static final String APPLICATION_NAME = "signpost-test";
 
-    public static final String NETFLIX_REQUEST_TOKEN_URL = "http://api.netflix.com/oauth/request_token";
-    public static final String NETFLIX_ACCESS_TOKEN_URL = "http://api.netflix.com/oauth/access_token";
+    public static final String NETFLIX_REQUEST_TOKEN_URL = "http://api-public.netflix.com/oauth/request_token";
+    public static final String NETFLIX_ACCESS_TOKEN_URL = "http://api-public.netflix.com/oauth/access_token";
     public static final String NETFLIX_AUTHORIZE_URL = "https://api-user.netflix.com/oauth/login";
 
     public static void main(String[] args) throws Exception {
@@ -42,13 +42,15 @@ public class NetflixMain {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String pin = br.readLine();
 
-        System.out.println("Fetching access token from Twitter...");
+        System.out.println("Fetching access token from Netflix...");
 
         provider.retrieveAccessToken(consumer, pin);
 
         System.out.println("Access token: " + consumer.getToken());
         System.out.println("Token secret: " + consumer.getTokenSecret());
-
+        // If you would like to make a "protected" request you will also need the user id
+        System.out.println("User ID: " + provider.getResponseParameters().getFirst( "user_id" );
+        
         URL url = new URL("http://api.netflix.com/catalog/titles");
         HttpURLConnection request = (HttpURLConnection) url.openConnection();
 
